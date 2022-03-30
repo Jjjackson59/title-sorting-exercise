@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "test": "deno test --lock=lock.json --allow-read=testdata",
-    "write_unsorted": "deno run --lock=lock.json --allow-read=data --allow-write=testdata ./.meta/transform.ts --write unsorted"
+    "test": "deno test --lock=lock.json --allow-read=src/testdata src/title-sort.test.ts",
+    "write_unsorted": "deno run --lock=lock.json --allow-read=.meta/data --allow-write=src/testdata .meta/transform.ts --write unsorted"
   }
 }

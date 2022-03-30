@@ -1,10 +1,14 @@
-import {assertStrictEquals, path} from './test_deps.ts';
+import {assertStrictEquals} from './test_deps.ts';
+import {getModuleRelativePath} from './utils.ts';
 import {titleSort} from './title-sort.ts';
 
-const testDataDir = path.join(path.dirname(path.fromFileUrl(import.meta.url)), 'testdata');
-
-async function getList (relativePath: string): Promise<string[]> {
-  const text = await Deno.readTextFile(path.join(testDataDir, relativePath));
+async function getList (...paths: string[]): Promise<string[]> {
+  const filePath = getModuleRelativePath(
+    import.meta,
+    'testdata',
+    ...paths,
+  );
+  const text = await Deno.readTextFile(filePath);
   return text.split('\n').map(str => str.trim()).filter(Boolean);
 }
 
