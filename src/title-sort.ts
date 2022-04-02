@@ -1,3 +1,17 @@
+function consistentCase (str: string): string {
+  return str.toLowerCase();
+}
+
+function removeLeadingArticle (str: string): string {
+  const articleRegex = /^(?:a\s+|an\s+|the\s+)/i;
+  return str.replace(articleRegex, '');
+}
+
+function removeDiacritics (str: string): string {
+  const diacriticRegex = /[\u0300-\u036f]/gu;
+  return str.normalize('NFD').replaceAll(diacriticRegex, '');
+}
+
 /**
  * A _compare function_ for sorting titles
  * 
@@ -9,5 +23,9 @@
  * - [`Array.prototype.sort()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
  */
 export function titleSort (titleA: string, titleB: string): number {
-  throw new Error('Unimplemented: Replace this with your implementation!');
+  // const a = removeDiacritics(removeLeadingArticle(consistentCase(titleA)));
+  // const b = removeDiacritics(removeLeadingArticle(consistentCase(titleB)));
+
+  // return a < b ? -1 : a > b ? 1 : 0;
+  return removeLeadingArticle(titleA).localeCompare(removeLeadingArticle(titleB), undefined, {sensitivity: 'base'});
 }
